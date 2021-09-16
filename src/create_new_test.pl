@@ -12,12 +12,13 @@ my %random;
 
 # Format Date and Time
 my $date = DateTime->now(time_zone => 'Europe/Zurich')->format_cldr("YYYYMMdd-kmms");
-
 # Extract current filename from ARGV
 my ($fname) = fileparse($ARGV[0], qr/\.txt/);
-
 #create new File
-open (newFile, '>', "$date-$fname.txt");
+my $dir = "EmptyTestfiles";
+mkdir($dir);
+open (newFile, '>', "$dir/$date-$fname.txt");
+
 
 # remove everything within square brackets
 sub removeIndicator() {
@@ -58,12 +59,15 @@ sub randomizeQuestions() {
 }
 
 
-# read file and call methods
+
+#------------------------------------------------------------------------------------------------------------------
+# Read File and call functions
+#------------------------------------------------------------------------------------------------------------------
 while (readline()) {
     removeIndicator();
     randomizeQuestions();
 }
 
 #info message
-print GREEN, "Succesfully created empty Exam-File."
+print GREEN, "Succesfully created empty Exam-File in Directory $dir."
 
