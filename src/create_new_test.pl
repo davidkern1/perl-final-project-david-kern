@@ -77,3 +77,6 @@ while (readline()) {
 # Message File successfully created in given directory
 print GREEN, "Successfully created empty Exam-File in Directory $dir."
 
+sub test {
+    print "works"
+}

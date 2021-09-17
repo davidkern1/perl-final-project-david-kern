@@ -2,7 +2,6 @@ use v5.34;
 use strict;
 use warnings;
 use Term::ANSIColor qw(:constants);
-use Data::Show;
 
 # declare number of tests
 use Test::More tests =>  1;
