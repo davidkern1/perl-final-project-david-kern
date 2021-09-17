@@ -75,23 +75,23 @@ A wide variety of modules were used for this project. The following is a list of
 <a name="cpan-modules"></a>
 ### CPAN Modules
 #### [Experimental](https://metacpan.org/pod/experimental)
-for defining functions with parameters
+for defining functions with parameters<br/>
 #### [Exporter](https://metacpan.org/pod/Exporter)
-for exporting functions from modules
+for exporting functions from modules<br/>
 #### [Term::ANSIColor](https://metacpan.org/pod/Term::ANSIColor)
-for printing colored text to console
+for printing colored text to console<br/>
 #### [Lingua::StopWords](https://metacpan.org/pod/Lingua::StopWords)
-for eliminating the stop words from a string
+for eliminating the stop words from a string<br/>
 #### [Text::Levenshtein::Damerau](https://metacpan.org/pod/Text::Levenshtein::Damerau)
-for correction of missmatching answers or questions
+for correction of missmatching answers or questions<br/>
 #### [List::Util](https://metacpan.org/pod/List::Util)
-for searching of the correct answer in master file
+for searching of the correct answer in master file<br/>
 #### [List::Compare;](https://metacpan.org/pod/List::Compare)
-for comparing two arrays and get items which appear (at least once) (get_Ronly)
+for comparing two arrays and get items which appear (at least once) (get_Ronly)<br/>
 #### [DateTime](https://metacpan.org/pod/DateTime)
-for getting current date and time to create new empty exam file
+for getting current date and time to create new empty exam file<br/>
 #### [File::Basename](https://metacpan.org/pod/File::Basename)
-for extracting basename of input file
+for extracting basename of input file<br/>
 <a name="custom-modules"></a>
 ### Custom Modules
 
