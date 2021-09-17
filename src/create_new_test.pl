@@ -6,20 +6,28 @@ use DateTime;
 use File::Basename qw(fileparse);
 use Term::ANSIColor qw(:constants);
 
-# variables to randomize answers
+# declare variables to randomize answers
 my $answerCounter = 0;
 my %random;
 
+
+#_________________________________________________________________________________________
+# get Filename and create new directory and new filename
+#_________________________________________________________________________________________
 # Format Date and Time
 my $date = DateTime->now(time_zone => 'Europe/Zurich')->format_cldr("YYYYMMdd-kmms");
+
 # Extract current filename from ARGV
 my ($fname) = fileparse($ARGV[0], qr/\.txt/);
-#create new File
+
+#create new directory and file
 my $dir = "EmptyTestfiles";
 mkdir($dir);
 open (newFile, '>', "$dir/$date-$fname.txt");
 
-
+#=========================================================================================
+# declare functions
+#_________________________________________________________________________________________
 # remove everything within square brackets
 sub removeIndicator() {
     s/\[([^\[\]]|(?0))*]/[ ]/;
@@ -37,7 +45,6 @@ sub randomizeQuestions() {
     }
     #check if answers are minimum of length 2 and the next line does not contain another answer
     if ($answerCounter >= 1 and !($_ =~ m/[ ]/)) {
-        #index($_, "[ ]") == -1
         #print answers in random order
         for my $answer (keys %random) {
             #if sample answer: replace [ ] with [X]
@@ -57,17 +64,16 @@ sub randomizeQuestions() {
         undef % random;
     }
 }
+#=========================================================================================
 
-
-
-#------------------------------------------------------------------------------------------------------------------
+#-----------------------------------------------------------------------------------------
 # Read File and call functions
-#------------------------------------------------------------------------------------------------------------------
+#-----------------------------------------------------------------------------------------
 while (readline()) {
     removeIndicator();
     randomizeQuestions();
 }
 
-#info message
-print GREEN, "Succesfully created empty Exam-File in Directory $dir."
+# Message File successfully created in given directory
+print GREEN, "Successfully created empty Exam-File in Directory $dir."
 

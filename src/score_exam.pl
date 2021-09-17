@@ -13,7 +13,7 @@ use David::Questions_and_Answers ('getQuestions_and_Answers');
 use David::Inexact_Matching ('normalize', 'compare');
 
 
-
+# declare variables of the input files
 my $master_file;
 my @students_files;
 
@@ -21,6 +21,7 @@ my @students_files;
 if (@ARGV < 2) {
     die RED, ("Solution File and/or Student Exam Files are missing.")
 }
+# Assign input files to variables
 else {
     $master_file = $ARGV[0];
     for my $stud_file (@ARGV[1..((scalar @ARGV)-1)]){
@@ -29,104 +30,93 @@ else {
 }
 
 
+#=========================================================================================
+# declare functions
+#_________________________________________________________________________________________
 
+# Get students exam score
+# Parameters:
+# - $filename
+# - (%) questions and answers of master file
+# - (%) questions and answers of student file
+# Return:
+# - Prints inexact matches, missing questions and answers
+# - Prints students filename with correct answers and completed questions
 sub score_exam {
     #save parameter to variables
     my $filename = shift;
     my %master_exam = %{(shift)};
     my %stud_exam = %{(shift)};
+
+    #auxiliary variables
     my $score_exam = 0;
     my $completed_questions = 0;
 
-
+    #formatting output
     say CLEAR, "-----------------------------------------------------------------------------------------------------------------------------------";
 
+    #_________________________________________________________________________________________
+    # check for inexact and missing questions
     for my $question_master (keys %master_exam) {
+        # get question number from master file for comparison
         my ($question_number) = $question_master =~ /^(\d+\.)/;
 
         for my $question_stud (keys %stud_exam) {
 
-            #check all questions and~answers
-            #if edistance <=10% inexact matches will be replaced
+            # serach for given question number
             if ($question_stud =~ qr/^\Q$question_number\E/mp == 1) {
                 my $cf_q = compare($question_master, $question_stud);
 
+                # replace inexact question in students file
                 if($cf_q eq "inexact"){
                     $stud_exam{$question_master} = delete $stud_exam{$question_stud};
-                    print CYAN, "Missing Question: $question_master";
-                    print CYAN, "Used this instead: $question_stud";
+                    say CYAN, "Missing Question: $question_master";
+                    say CYAN, "Used this instead: $question_stud";
                 }
+                # show missing question in students file
                 elsif($cf_q eq "missing"){
-                    print YELLOW, "Missing Question: $question_master";
+                    say YELLOW, "Missing Question: $question_master";
                 }
                 else {
                     #do nothing
                 }
             }
         }
+        #_________________________________________________________________________________________
+        # check for inexact and missing answers
 
-
+        # compare list of answers for differences
         my $lc = List::Compare->new(\@{$master_exam{$question_master}}, \@{$stud_exam{$question_master}});
         my @lonly = $lc->get_Ronly;
 
         for my $answer (@lonly) {
             foreach (@{$master_exam{$question_master}}) {
                 my $cf_a = compare($_ =~ s/\[.*\] *//r, $answer =~ s/\[.*\] *//r);
-                if ($cf_a eq "inexact") {
 
-                    #replace answer
+                # replace inexact answers in students file
+                if ($cf_a eq "inexact") {
                     for my $replace (@{$stud_exam{$question_master}}) {
                         my ($givenAnswer) = $replace =~ m/\[.*\]/g;
                         $replace = $_ =~ s/\[.*\] /$givenAnswer /r if ($replace eq $answer);
                     }
-
-                    print MAGENTA, "Missing Answer:" . $_ =~ s/\[.*\] */ /r;
-                    print MAGENTA, "Used this instead:" . $answer =~ s/\[.*\] */ /r;
+                    say MAGENTA, "Missing Answer:" . $_ =~ s/\[.*\] */ /r;
+                    say MAGENTA, "Used this instead:" . $answer =~ s/\[.*\] */ /r;
                 }
                 else {
                     #do nothing
                 }
-
             }
         }
+
         #show Missing Answers after evaluating inexact matching
         my $lc2 = List::Compare->new(\@{$stud_exam{$question_master}}, \@{$master_exam{$question_master}});
         my @missing = $lc2->get_Ronly;
         foreach(@missing){
-            print BLUE, "Missing Answer:" . $_ =~ s/\[.*\] */ /r;
+            say BLUE, "Missing Answer:" . $_ =~ s/\[.*\] */ /r;
         }
 
-
-
-        #
-        # if(@lonly > 0){
-        #     foreach(@lonly){
-        #         print "Missing Answer: $_";
-        #     }
-        # }
-
-        # print YELLOW, "Missing answer: $answer";
-
-
-        # for my $master_answer (sort @{$master_exam{$question_master}}){
-        #     for my $stud_answer (sort @{$stud_exam{$question_master}}) {
-        #         my $cf_a = compare($master_answer =~ s/^\[.*\] *//r, $stud_answer =~ s/^\[.*\] *//r);
-        #         if ($cf_a eq "inexact") {
-        #             my ($givenAnswer) = $stud_answer =~ /^\[.*\] /;
-        #             $stud_answer = $master_answer =~ s/^\[.*\] */\Q$givenAnswer\E/r;
-        #             print MAGENTA, "Missing Answer: $master_answer";
-        #             print MAGENTA, "Used this instead: $stud_answer";
-        #         }
-        #         elsif ($cf_a eq "missing") {
-        #            # print YELLOW, "Missing Answer: $master_answer";
-        #         }
-        #         else {
-        #             # do nothing
-        #         }
-        #
-        #     }
-        # }
-
+        #_________________________________________________________________________________________
+        # calculate score of studentsfile
         if (exists($stud_exam{$question_master})) {
             #get answer from master file
             my $correct_answer_master = first {m/\[X].*/p} @{$master_exam{$question_master}};
@@ -136,31 +126,31 @@ sub score_exam {
 
             #if students file has [X] in one answer increment completed question
             if (@correct_answer_stud > 0) {$completed_questions++}
+
+            # check if only one and the correct answer is checked, else the answer is incorrect
             if (@correct_answer_stud == 1 and $correct_answer_master eq $correct_answer_stud[0]) {
                 $score_exam++
             }
         }
-
-
-
     }
+    #formatting output
     say WHITE, ". . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .";
     say GREEN, "$filename => $score_exam/$completed_questions";
     say CLEAR, "-----------------------------------------------------------------------------------------------------------------------------------";
-
 }
+#=========================================================================================
 
-
-
-
-#------------------------------------------------------------------------------------------------------------------
+#-----------------------------------------------------------------------------------------
 # Call functions
-#------------------------------------------------------------------------------------------------------------------
+#-----------------------------------------------------------------------------------------
+# save all Questions (key) and Answers (value) in a hash
 my %master_exam = getQuestions_and_Answers($master_file);
 
 for my $sf (@students_files){
+    # save all Questions (key) and Answers (value) in a hash
     my %stud_exam = getQuestions_and_Answers($sf);
-    score_exam($sf, \%master_exam, \%stud_exam); #references to hashes
 
+    # print and calculate score of the students file
+    score_exam($sf, \%master_exam, \%stud_exam); #references to hashes
 }
 
