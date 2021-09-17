@@ -112,7 +112,7 @@ Used to normalize a string and compares two normalized string if the differ more
 
 <a name="testing"></a>
 ## Testing
-To test the functionality of the modules, the functions have been checked for correctness. to start the tests, the following commands are required:
+To test the functionality of the modules, the functions have been checked for correctness. To start the tests, the following commands are required:
 ```
 perl tests/getQuestions_and_Answers.t 
 perl tests/inexact_matching.t    
@@ -120,7 +120,7 @@ perl tests/inexact_matching.t
 
 <a name="retrospective"></a>
 ## Retrospective
-### Problem saving question and answer in hash
+### Problem saving question and answer in %hash
 In the beginning I had a hard time saving the questions and answers into a hash. 
 The problem was that under each question (key) all corresponding answers (value in an array) 
 should be stored. With the help of an additional auxiliary variable $active_questions this 
