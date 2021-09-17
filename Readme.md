@@ -75,7 +75,7 @@ A wide variety of modules were used for this project. The following is a list of
 <a name="cpan-modules"></a>
 ### CPAN Modules
 #### [Experimental](https://metacpan.org/pod/experimental)
-for defining functions with parameters<br/>
+for defining functions with parameters
 #### [Exporter](https://metacpan.org/pod/Exporter)
 for exporting functions from modules<br/>
 #### [Term::ANSIColor](https://metacpan.org/pod/Term::ANSIColor)
@@ -86,7 +86,7 @@ for eliminating the stop words from a string<br/>
 for correction of missmatching answers or questions<br/>
 #### [List::Util](https://metacpan.org/pod/List::Util)
 for searching of the correct answer in master file<br/>
-#### [List::Compare;](https://metacpan.org/pod/List::Compare)
+#### [List::Compare](https://metacpan.org/pod/List::Compare)
 for comparing two arrays and get items which appear (at least once) (get_Ronly)<br/>
 #### [DateTime](https://metacpan.org/pod/DateTime)
 for getting current date and time to create new empty exam file<br/>
