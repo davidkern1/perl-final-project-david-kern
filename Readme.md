@@ -150,7 +150,7 @@ Another problem was the detection of completely missing answers. First, all answ
 Using the List::Compare module, the answer arrays of the master file and the student file could be compared. With the function `get_Ronly` those answers could be found which are not contained in the answers of the student file.
 
 ### What would I do differently?
-instead of manually storing the questions and answers line by line in a hash variable, 
+Instead of manually storing the questions and answers line by line in a hash variable, 
 I would use the module [Regexp::Grammers](https://metacpan.org/pod/Regexp::Grammars) 
 to parse the files. This would have certainly simplified the whole process. Unfortunately I
 found this useful module late in the implementation, so there was not enough time to adapt 
