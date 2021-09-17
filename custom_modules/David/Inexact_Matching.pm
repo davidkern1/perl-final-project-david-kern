@@ -62,7 +62,7 @@ sub compare($string_master, $string_stud){
     }
 
     # if distance of $string_master vs $string_stud is too big => return "missing"
-    else {
+    elsif($edistance > $max_distance) {
         return "missing";
     }
 }

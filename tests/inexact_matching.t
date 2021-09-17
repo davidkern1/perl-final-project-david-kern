@@ -23,4 +23,4 @@ ok(compare("This is a long testing example for inexact matching.", "This is a lo
 
 
 say BLUE, "Test elemination of stop words", YELLOW;
-ok(normalize("This is a TEST to check the elimination of stopwords.") eq "test check elimination stopwords.")
+ok(normalize("This is a TEST to check the elimination of stopwords.") eq "test.txt check elimination stopwords.")
