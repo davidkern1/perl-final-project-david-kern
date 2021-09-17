@@ -84,13 +84,13 @@ for printing colored text to console
 for eliminating the stop words from a string
 #### [Text::Levenshtein::Damerau](https://metacpan.org/pod/Text::Levenshtein::Damerau)
 for correction of missmatching answers or questions
-### [List::Util](https://metacpan.org/pod/List::Util)
+#### [List::Util](https://metacpan.org/pod/List::Util)
 for searching of the correct answer in master file
-### [List::Compare;](https://metacpan.org/pod/List::Compare)
+#### [List::Compare;](https://metacpan.org/pod/List::Compare)
 for comparing two arrays and get items which appear (at least once) (get_Ronly)
-### [DateTime](https://metacpan.org/pod/DateTime)
+#### [DateTime](https://metacpan.org/pod/DateTime)
 for getting current date and time to create new empty exam file
-### [File::Basename](https://metacpan.org/pod/File::Basename)
+#### [File::Basename](https://metacpan.org/pod/File::Basename)
 for extracting basename of input file
 <a name="custom-modules"></a>
 ### Custom Modules
